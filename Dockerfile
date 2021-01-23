@@ -14,7 +14,7 @@ RUN apt-get install -y -q
 
 RUN apt-get install -y dialog apt-utils
 
-RUN apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg libc6
+RUN apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg libc6 wget
 
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
 
@@ -29,3 +29,17 @@ RUN apt-get install -y azure-cli
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
 RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# POWERSHELL
+
+RUN apt-get install -y software-properties-common
+
+RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+
+RUN dpkg -i packages-microsoft-prod.deb
+
+RUN apt-get update
+
+RUN add-apt-repository universe
+
+RUN apt-get install -y powershell
